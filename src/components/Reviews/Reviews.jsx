@@ -3,39 +3,67 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviewMovie } from 'utils/api';
 import showMessage from 'utils/swalConfig';
+import {
+  ReviewsContainer,
+  Title,
+  ReviewList,
+  ReviewItem,
+} from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchReviewMovie(movieId)
       .then(data => {
         setReviews(data);
+        setIsLoading(false);
       })
       .catch(error => {
-        showMessage('Error while fetching movie reviews.');
-        setError(error);
+        showMessage(error.message);
+        setIsLoading(false);
       });
   }, [movieId]);
 
-  if (error) {
-    return <p>Something went wrong.</p>;
-  }
+  const truncateContent = (content, maxLength) => {
+    if (content.length > maxLength) {
+      return content.substring(0, maxLength) + '...';
+    }
+    return content;
+  };
 
   return (
-    <div>
-      <h2>Reviews</h2>
-      <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
-            <h3>{review.author}</h3>
-            <p>{review.content}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ReviewsContainer>
+      <Title>Reviews</Title>
+      {isLoading ? (
+        <p></p>
+      ) : (
+        <ReviewList>
+          {reviews.length > 0 ? (
+            reviews.map(review => (
+              <ReviewItem key={review.id}>
+                <strong>{review.author}</strong>
+                <span>{truncateContent(review.content, 600)}</span>
+                {review.content.length > 200 && (
+                  <a
+                    href={review.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Read full review
+                  </a>
+                )}
+              </ReviewItem>
+            ))
+          ) : (
+            <p>no reviews found 😞</p>
+          )}
+        </ReviewList>
+      )}
+    </ReviewsContainer>
   );
 };
 

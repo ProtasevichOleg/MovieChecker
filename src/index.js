@@ -8,7 +8,12 @@ import { GlobalStyle } from 'components/GlobalStyle';
 
 const theme = {
   colors: {
-    // ваші кольори
+    primary: '#ff6347',
+    secondary: '#008080',
+    navLink: '#61dafb',
+    navLinkActive: '#ffffff',
+    lightReviewBackground: '#F5F5F5',
+    darkReviewBackground: '#E5E5E5',
   },
 };
 

@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { fetchTrendMovies } from '../utils/api';
 import { Link } from 'react-router-dom';
+import showMessage from '../utils/swalConfig';
+import { PageContainer, Title, MovieList, MovieItem } from './Pages.styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchTrendMovies()
@@ -13,25 +14,21 @@ const Home = () => {
         setMovies(data);
       })
       .catch(error => {
-        setError(error);
+        showMessage(error.message);
       });
   }, []);
 
-  if (error) {
-    return <p>Something went wrong.</p>;
-  }
-
   return (
-    <div>
-      <h1>Popular Movies Today</h1>
-      <ul>
+    <PageContainer>
+      <Title>Popular Movies Today</Title>
+      <MovieList>
         {movies.map(movie => (
-          <li key={movie.id}>
+          <MovieItem key={movie.id}>
             <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
+          </MovieItem>
         ))}
-      </ul>
-    </div>
+      </MovieList>
+    </PageContainer>
   );
 };
 

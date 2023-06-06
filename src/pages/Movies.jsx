@@ -3,12 +3,17 @@ import React, { useState } from 'react';
 import { fetchQueryMovies } from 'utils/api';
 import showMessage from 'utils/swalConfig';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  PageContainer,
+  Title,
+  MovieSearchForm,
+  MovieList,
+  MovieItem,
+} from './Pages.styled';
 
 const Movies = () => {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
-
   const navigate = useNavigate();
 
   const handleSearchSubmit = event => {
@@ -20,8 +25,7 @@ const Movies = () => {
         navigate(`/movies?query=${search}`);
       })
       .catch(error => {
-        showMessage('Error while fetching movie by query.');
-        setError(error);
+        showMessage(error.message);
       });
   };
 
@@ -29,14 +33,10 @@ const Movies = () => {
     setSearch(event.target.value);
   };
 
-  if (error) {
-    return <p>Something went wrong.</p>;
-  }
-
   return (
-    <div>
-      <h1>Search for a movie</h1>
-      <form onSubmit={handleSearchSubmit}>
+    <PageContainer>
+      <Title>Search for a movie</Title>
+      <MovieSearchForm onSubmit={handleSearchSubmit}>
         <input
           type="text"
           value={search}
@@ -44,19 +44,19 @@ const Movies = () => {
           placeholder="Search..."
         />
         <button type="submit">Search</button>
-      </form>
+      </MovieSearchForm>
       {movies.length === 0 ? (
         <p>No movies found...</p>
       ) : (
-        <ul>
+        <MovieList>
           {movies.map(movie => (
-            <li key={movie.id}>
+            <MovieItem key={movie.id}>
               <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-            </li>
+            </MovieItem>
           ))}
-        </ul>
+        </MovieList>
       )}
-    </div>
+    </PageContainer>
   );
 };
 

@@ -3,11 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCastMovie } from 'utils/api';
 import showMessage from 'utils/swalConfig';
+import {
+  CastContainer,
+  Title,
+  CastList,
+  CastItem,
+  ActorImage,
+} from './Cast.styled';
+import AvatarImage from '../../images/missing-actor.png';
 
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchCastMovie(movieId)
@@ -15,24 +22,32 @@ const Cast = () => {
         setCast(data);
       })
       .catch(error => {
-        showMessage('Error while fetching movie cast.');
-        setError(error);
+        showMessage(error.message);
       });
   }, [movieId]);
 
-  if (error) {
-    return <p>Something went wrong.</p>;
-  }
+  const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
   return (
-    <div>
-      <h2>Cast</h2>
-      <ul>
+    <CastContainer>
+      <Title>Cast</Title>
+      <CastList>
         {cast.map(actor => (
-          <li key={actor.id}>{actor.name}</li>
+          <CastItem key={actor.id}>
+            <ActorImage
+              src={
+                actor.profile_path
+                  ? IMAGE_BASE_URL + actor.profile_path
+                  : AvatarImage
+              }
+              alt={actor.name}
+              height={160}
+            />
+            <p>{actor.name}</p>
+          </CastItem>
         ))}
-      </ul>
-    </div>
+      </CastList>
+    </CastContainer>
   );
 };
 
