@@ -1,10 +1,21 @@
 // src/pages/Home.jsx
+import React, { useState, useEffect } from 'react';
 import { fetchTrendMovies } from '../utils/api';
 import { Link } from 'react-router-dom';
-import useFetch from 'hooks/useFetch';
 
 const Home = () => {
-  const { data: movies, error } = useFetch(fetchTrendMovies, () => []);
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchTrendMovies()
+      .then(data => {
+        setMovies(data);
+      })
+      .catch(error => {
+        setError(error);
+      });
+  }, []);
 
   if (error) {
     return <p>Something went wrong.</p>;
