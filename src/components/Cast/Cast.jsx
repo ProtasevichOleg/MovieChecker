@@ -7,25 +7,18 @@ import showMessage from 'utils/swalConfig';
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchCastMovie(movieId)
       .then(data => {
         setCast(data);
-        setIsLoading(false);
       })
       .catch(error => {
         showMessage('Error while fetching movie cast.');
         setError(error);
-        setIsLoading(false);
       });
   }, [movieId]);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   if (error) {
     return <p>Something went wrong.</p>;

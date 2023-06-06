@@ -1,30 +1,10 @@
 // src/pages/Home.jsx
-import React, { useState, useEffect } from 'react';
 import { fetchTrendMovies } from '../utils/api';
-import showMessage from 'utils/swalConfig';
 import { Link } from 'react-router-dom';
+import useFetch from 'hooks/useFetch';
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetchTrendMovies()
-      .then(data => {
-        setMovies(data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        showMessage('Error while loading trending movies.');
-        setError(error);
-        setIsLoading(false);
-      });
-  }, []);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  const { data: movies, error } = useFetch(fetchTrendMovies, () => []);
 
   if (error) {
     return <p>Something went wrong.</p>;

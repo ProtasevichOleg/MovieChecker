@@ -1,6 +1,18 @@
 // src/components/Spinner.jsx
-import { ThreeDots } from 'react-loader-spinner';
+import { useEffect } from 'react';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
-const Spinner = () => <ThreeDots color="#00BFFF" height={80} width={80} />;
+const Spinner = () => {
+  useEffect(() => {
+    NProgress.start();
+
+    return () => {
+      NProgress.done();
+    };
+  }, []);
+
+  return null;
+};
 
 export default Spinner;
