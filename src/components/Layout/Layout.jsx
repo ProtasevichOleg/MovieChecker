@@ -1,12 +1,19 @@
-// src/components/Layout.jsx
 import { Suspense } from 'react';
 import Spinner from 'components/Spinner';
 import { Outlet } from 'react-router-dom';
-import { Header, Nav, NavLinkStyled, Main } from './Layout.styled';
+import {
+  Container,
+  Header,
+  Nav,
+  NavLinkStyled,
+  Main,
+  Footer,
+  Copyright,
+} from './Layout.styled';
 
 const Layout = () => {
   return (
-    <>
+    <Container>
       <Header>
         <Nav>
           <NavLinkStyled to="/">Home</NavLinkStyled>
@@ -18,8 +25,10 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </Main>
-    </>
+      <Footer>
+        <Copyright>© Developed by Oleh Protasevych 2023</Copyright>
+      </Footer>
+    </Container>
   );
 };
-
 export default Layout;

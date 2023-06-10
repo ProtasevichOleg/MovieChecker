@@ -1,4 +1,3 @@
-// src/components/Spinner.jsx
 import { useEffect } from 'react';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';

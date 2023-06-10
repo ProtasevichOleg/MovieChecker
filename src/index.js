@@ -1,5 +1,6 @@
+// src/index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './components/GlobalStyle';
@@ -7,10 +8,13 @@ import App from './components/App';
 
 const theme = {
   colors: {
+    layoutText: '#ffffff',
+    layoutTextActive: '#61dafb',
+    LayoutBackground: '#282c34',
+
     primary: '#ff6347',
+    primaryUnactive: '#c89b94',
     secondary: '#008080',
-    navLink: '#61dafb',
-    navLinkActive: '#ffffff',
     lightReviewBackground: '#F5F5F5',
     darkReviewBackground: '#E5E5E5',
   },

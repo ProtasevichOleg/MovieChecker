@@ -1,4 +1,3 @@
-// src/utils/swalConfig.js
 import Swal from 'sweetalert2';
 
 const showMessage = message => {

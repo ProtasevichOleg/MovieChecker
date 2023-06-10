@@ -1,9 +1,7 @@
-// src/utils/api.js
-
 import axios from 'axios';
-import { API_KEY } from './constants.js';
-import showMessage from './swalConfig.js';
 import NProgress from 'nprogress';
+
+import { API_KEY } from './constants.js';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
@@ -15,7 +13,6 @@ export async function fetchTrendMovies() {
     return res.data.results;
   } catch (error) {
     NProgress.done();
-    showMessage('Error while loading trending movies.');
     throw error;
   }
 }
@@ -30,7 +27,6 @@ export async function fetchQueryMovies(query) {
     return res.data.results;
   } catch (error) {
     NProgress.done();
-    showMessage('Error while fetching movie by query.');
     throw error;
   }
 }
@@ -45,7 +41,6 @@ export async function fetchDetailsMovie(movieId) {
     return res.data;
   } catch (error) {
     NProgress.done();
-    showMessage('Error while fetching movie details.');
     throw error;
   }
 }
@@ -60,7 +55,6 @@ export async function fetchCastMovie(movieId) {
     return res.data.cast;
   } catch (error) {
     NProgress.done();
-    showMessage('Error while fetching movie cast.');
     throw error;
   }
 }
@@ -75,7 +69,6 @@ export async function fetchReviewMovie(movieId) {
     return res.data.results;
   } catch (error) {
     NProgress.done();
-    showMessage('Error while fetching movie reviews.');
     throw error;
   }
 }

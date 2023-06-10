@@ -1,4 +1,3 @@
-// src/components/GlobalStyle.jsx
 import { createGlobalStyle } from 'styled-components';
 import 'modern-normalize';
 

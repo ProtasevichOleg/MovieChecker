@@ -1,92 +1,68 @@
-// src/pages/MovieDetails.jsx
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { memo, useState, useEffect, useRef } from 'react';
+import { useParams, Outlet, useLocation, NavLink } from 'react-router-dom';
+
+import CenteredMessage from 'components/CenteredMessage';
+import GoBackButton from 'components/GoBackButton';
+import MovieInfoList from 'components/MovieInfoList';
+import PageContainer from 'components/PageContainer';
+import PageTitle from 'components/PageTitle';
+import SecondaryNavigation from 'components/SecondaryNavigation';
 import { fetchDetailsMovie } from 'utils/api';
 import showMessage from 'utils/swalConfig';
-import {
-  MovieDetailsContainer,
-  Title,
-  MovieInfoWrapper,
-  MovieInfo,
-  MovieInfoItem,
-  MovieInfoLabel,
-  MovieInfoValue,
-  MovieOverview,
-  MovieLinks,
-  MoviePoster,
-} from './MovieDetails.styled';
-import defaultPoster from '../images/missing-film.jpg';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [state, setState] = useState('idle');
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchDetailsMovie(movieId)
-      .then(data => {
-        setMovie(data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        showMessage(error.message);
-        setIsLoading(false);
-      });
+    let isSubscribed = true;
+    const fetchMovieDetails = async () => {
+      setState('pending');
+      try {
+        const data = await fetchDetailsMovie(movieId);
+        if (isSubscribed) {
+          setMovie(data);
+          setState('responded');
+        }
+      } catch (error) {
+        showMessage('Something went wrong, look for another movie');
+        if (isSubscribed) {
+          setState('rejected');
+        }
+      }
+    };
+
+    fetchMovieDetails();
+    return () => {
+      isSubscribed = false;
+    };
   }, [movieId]);
 
-  const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-
-  if (isLoading) {
-    return <p></p>;
-  }
-
-  if (!movie) {
-    return <p>No details available for this movie.</p>;
-  }
-
   return (
-    <MovieDetailsContainer>
-      <Title>{movie.title}</Title>
-      <MovieInfoWrapper>
-        <MovieInfo>
-          <MovieInfoItem>
-            <MovieInfoLabel>Release Date:</MovieInfoLabel>
-            <MovieInfoValue>{movie.release_date}</MovieInfoValue>
-          </MovieInfoItem>
-          <MovieInfoItem>
-            <MovieInfoLabel>Runtime:</MovieInfoLabel>
-            <MovieInfoValue>{movie.runtime} minutes</MovieInfoValue>
-          </MovieInfoItem>
-          <MovieInfoItem>
-            <MovieInfoLabel>Genres:</MovieInfoLabel>
-            <MovieInfoValue>
-              {movie.genres.map(genre => genre.name).join(', ')}
-            </MovieInfoValue>
-          </MovieInfoItem>
-          <MovieInfoItem>
-            <MovieInfoLabel>Tagline:</MovieInfoLabel>
-            <MovieInfoValue>{movie.tagline}</MovieInfoValue>
-          </MovieInfoItem>
-          <MovieOverview>{movie.overview}</MovieOverview>
-        </MovieInfo>
-        <MoviePoster
-          height={450}
-          src={
-            movie.poster_path
-              ? `${IMAGE_BASE_URL}${movie.poster_path}`
-              : defaultPoster
-          }
-          alt={movie.title}
+    <PageContainer>
+      <GoBackButton prevLocation={backLinkLocationRef.current} />
+      {state === 'pending' && null}
+      {state === 'rejected' && (
+        <CenteredMessage
+          message={'Something went wrong, look for another movie'}
         />
-      </MovieInfoWrapper>
-      <MovieLinks>
-        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-      </MovieLinks>
-      <Outlet />
-    </MovieDetailsContainer>
+      )}
+      {state === 'responded' && movie && (
+        <>
+          <PageTitle title={movie.title} />
+          <MovieInfoList movie={movie} />
+          <SecondaryNavigation>
+            <NavLink to={`cast`}>Cast</NavLink>
+            <NavLink to={`reviews`}>Reviews</NavLink>
+          </SecondaryNavigation>
+          <Outlet />
+        </>
+      )}
+    </PageContainer>
   );
 };
 
-export default React.memo(MovieDetails);
+export default memo(MovieDetails);

@@ -1,33 +1,56 @@
-// src/pages/Home.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import CenteredMessage from 'components/CenteredMessage';
+import MovieList from 'components/MovieList';
+import PageContainer from 'components/PageContainer';
+import PageTitle from 'components/PageTitle';
+
 import { fetchTrendMovies } from '../utils/api';
-import { Link } from 'react-router-dom';
 import showMessage from '../utils/swalConfig';
-import { PageContainer, Title, MovieList, MovieItem } from './Pages.styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [state, setState] = useState('idle');
+  const location = useLocation();
 
   useEffect(() => {
-    fetchTrendMovies()
-      .then(data => {
-        setMovies(data);
-      })
-      .catch(error => {
-        showMessage(error.message);
-      });
+    let isSubscribed = true;
+    setState('pending');
+    const fetchMovies = async () => {
+      try {
+        const data = await fetchTrendMovies();
+        if (isSubscribed) {
+          setMovies(data);
+          setState('responded');
+        }
+      } catch (error) {
+        showMessage('Popular movies loading failed. Please refresh the page');
+        if (isSubscribed) {
+          setState('rejected');
+        }
+      }
+    };
+
+    fetchMovies();
+
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
     <PageContainer>
-      <Title>Popular Movies Today</Title>
-      <MovieList>
-        {movies.map(movie => (
-          <MovieItem key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </MovieItem>
-        ))}
-      </MovieList>
+      <PageTitle title={'Popular Movies Today'} />
+      {state === 'responded' && (
+        // <MovieList movies={movies} />
+        <MovieList movies={movies} location={location} />
+      )}
+      {state === 'rejected' && (
+        <CenteredMessage
+          message={'Popular movies loading failed. Please refresh the page'}
+        />
+      )}
     </PageContainer>
   );
 };
