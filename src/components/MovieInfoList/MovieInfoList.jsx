@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   MovieInfoContainer,
   MovieInfoStyled,
@@ -50,5 +51,21 @@ const MovieInfo = ({
     </MovieInfoStyled>
   </MovieInfoContainer>
 );
+
+MovieInfo.propTypes = {
+  movie: PropTypes.shape({
+    release_date: PropTypes.string.isRequired,
+    runtime: PropTypes.number.isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    tagline: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
+    poster_path: PropTypes.string,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default MovieInfo;
