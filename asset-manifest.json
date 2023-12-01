@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/goit-react-hw-05-movies/static/css/main.50dc4e84.css",
-    "main.js": "/goit-react-hw-05-movies/static/js/main.96058b8a.js",
-    "static/js/370.ba131a1b.chunk.js": "/goit-react-hw-05-movies/static/js/370.ba131a1b.chunk.js",
-    "static/js/713.10e4dd6b.chunk.js": "/goit-react-hw-05-movies/static/js/713.10e4dd6b.chunk.js",
-    "static/js/55.0a4255ed.chunk.js": "/goit-react-hw-05-movies/static/js/55.0a4255ed.chunk.js",
-    "static/js/614.c82c69fe.chunk.js": "/goit-react-hw-05-movies/static/js/614.c82c69fe.chunk.js",
-    "static/js/896.b4c27d43.chunk.js": "/goit-react-hw-05-movies/static/js/896.b4c27d43.chunk.js",
-    "static/js/538.32d09608.chunk.js": "/goit-react-hw-05-movies/static/js/538.32d09608.chunk.js",
-    "static/js/61.a504d123.chunk.js": "/goit-react-hw-05-movies/static/js/61.a504d123.chunk.js",
-    "static/media/missing-film.jpg": "/goit-react-hw-05-movies/static/media/missing-film.8c69aaa593d8bf3c3b84.jpg",
-    "static/media/missing-actor.png": "/goit-react-hw-05-movies/static/media/missing-actor.dec0bcf45e9b294bd46b.png",
-    "index.html": "/goit-react-hw-05-movies/index.html",
-    "main.50dc4e84.css.map": "/goit-react-hw-05-movies/static/css/main.50dc4e84.css.map",
-    "main.96058b8a.js.map": "/goit-react-hw-05-movies/static/js/main.96058b8a.js.map",
-    "370.ba131a1b.chunk.js.map": "/goit-react-hw-05-movies/static/js/370.ba131a1b.chunk.js.map",
-    "713.10e4dd6b.chunk.js.map": "/goit-react-hw-05-movies/static/js/713.10e4dd6b.chunk.js.map",
-    "55.0a4255ed.chunk.js.map": "/goit-react-hw-05-movies/static/js/55.0a4255ed.chunk.js.map",
-    "614.c82c69fe.chunk.js.map": "/goit-react-hw-05-movies/static/js/614.c82c69fe.chunk.js.map",
-    "896.b4c27d43.chunk.js.map": "/goit-react-hw-05-movies/static/js/896.b4c27d43.chunk.js.map",
-    "538.32d09608.chunk.js.map": "/goit-react-hw-05-movies/static/js/538.32d09608.chunk.js.map",
-    "61.a504d123.chunk.js.map": "/goit-react-hw-05-movies/static/js/61.a504d123.chunk.js.map"
+    "main.css": "/MovieChecker/static/css/main.50dc4e84.css",
+    "main.js": "/MovieChecker/static/js/main.69e2b583.js",
+    "static/js/370.753a984b.chunk.js": "/MovieChecker/static/js/370.753a984b.chunk.js",
+    "static/js/713.4f8e14e9.chunk.js": "/MovieChecker/static/js/713.4f8e14e9.chunk.js",
+    "static/js/55.a460cd67.chunk.js": "/MovieChecker/static/js/55.a460cd67.chunk.js",
+    "static/js/614.e981b0b7.chunk.js": "/MovieChecker/static/js/614.e981b0b7.chunk.js",
+    "static/js/896.f2d0d091.chunk.js": "/MovieChecker/static/js/896.f2d0d091.chunk.js",
+    "static/js/538.35b54200.chunk.js": "/MovieChecker/static/js/538.35b54200.chunk.js",
+    "static/js/61.f428d0e7.chunk.js": "/MovieChecker/static/js/61.f428d0e7.chunk.js",
+    "static/media/missing-film.jpg": "/MovieChecker/static/media/missing-film.8c69aaa593d8bf3c3b84.jpg",
+    "static/media/missing-actor.png": "/MovieChecker/static/media/missing-actor.dec0bcf45e9b294bd46b.png",
+    "index.html": "/MovieChecker/index.html",
+    "main.50dc4e84.css.map": "/MovieChecker/static/css/main.50dc4e84.css.map",
+    "main.69e2b583.js.map": "/MovieChecker/static/js/main.69e2b583.js.map",
+    "370.753a984b.chunk.js.map": "/MovieChecker/static/js/370.753a984b.chunk.js.map",
+    "713.4f8e14e9.chunk.js.map": "/MovieChecker/static/js/713.4f8e14e9.chunk.js.map",
+    "55.a460cd67.chunk.js.map": "/MovieChecker/static/js/55.a460cd67.chunk.js.map",
+    "614.e981b0b7.chunk.js.map": "/MovieChecker/static/js/614.e981b0b7.chunk.js.map",
+    "896.f2d0d091.chunk.js.map": "/MovieChecker/static/js/896.f2d0d091.chunk.js.map",
+    "538.35b54200.chunk.js.map": "/MovieChecker/static/js/538.35b54200.chunk.js.map",
+    "61.f428d0e7.chunk.js.map": "/MovieChecker/static/js/61.f428d0e7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.50dc4e84.css",
-    "static/js/main.96058b8a.js"
+    "static/js/main.69e2b583.js"
   ]
 }
